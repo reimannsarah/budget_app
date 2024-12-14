@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Django-related files
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Test and debug artifacts
+*.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+
+# Node.js dependencies (if React Native is part of the monorepo)
+node_modules/
+
+# Docker-related files
+*.pid
+*.log
+docker-compose.override.yml
+
+# Secrets and sensitive data
+secrets.json
