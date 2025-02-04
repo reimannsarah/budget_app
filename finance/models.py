@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Budget(models.Model):
+class BudgetItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.CharField(max_length=255)
     created_at = models.DateField(auto_now_add=True)
-    percentagae_of_income = models.DecimalField(max_digits=3, decimal_places=2)
+    percentage_of_income = models.DecimalField(max_digits=3, decimal_places=2)
     updated_at = models.DateField(auto_now=True)
 
 class CreditCard(models.Model):
