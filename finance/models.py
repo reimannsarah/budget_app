@@ -9,6 +9,9 @@ class BudgetItem(models.Model):
     percentage_of_income = models.DecimalField(max_digits=3, decimal_places=2)
     updated_at = models.DateField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.category}"
+
 class CreditCard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     annual_fee = models.DecimalField(max_digits=10, decimal_places=2)
