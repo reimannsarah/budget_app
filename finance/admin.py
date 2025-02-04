@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Budget, CreditCards, Income, Loans, PaymentMethods, Subscriptions 
+from .models import Budget, CreditCard, Income, Loan, PaymentMethod, Subscription 
 
 admin.site.register(Budget)
-admin.site.register(CreditCards)
+admin.site.register(CreditCard)
 admin.site.register(Income)
-admin.site.register(Loans)
-admin.site.register(PaymentMethods)
-admin.site.register(Subscriptions)
+admin.site.register(Loan)
+admin.site.register(PaymentMethod)
+admin.site.register(Subscription)
