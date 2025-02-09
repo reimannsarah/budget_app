@@ -13,5 +13,5 @@ router.register(r'subscriptions', views.SubscriptionViewSet)
 
 urlpatterns = [
     # Include the router URLs
-    path('api/', include(router.urls)),
+    path('', include(router.urls)),
 ]
