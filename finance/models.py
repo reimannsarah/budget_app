@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 
 class BudgetItem(models.Model):
@@ -6,7 +7,11 @@ class BudgetItem(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.CharField(max_length=255)
     created_at = models.DateField(auto_now_add=True)
-    percentage_of_income = models.DecimalField(max_digits=3, decimal_places=2)
+    percentage_of_income = models.DecimalField(
+        max_digits=5, 
+        decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(100)]
+        )
     updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
