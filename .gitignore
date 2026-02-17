@@ -50,4 +50,4 @@ docker-compose.override.yml
 # Secrets and sensitive data
 secrets.json
 
-budget_db
+budget_db.env
