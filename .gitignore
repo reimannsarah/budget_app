@@ -1,53 +1,57 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*.so
+# =========================
+# Backend (Django)
+# =========================
+backend/__pycache__/
+backend/*.py[cod]
+backend/*.so
+backend/*.log
+backend/*.sqlite3
+backend/budget_db
+backend/media/
+backend/staticfiles/
+backend/.env
+backend/venv/
+backend/env/
+backend/.venv/
+backend/.pytest_cache/
+backend/.tox/
+backend/.nox/
+backend/htmlcov/
+backend/.coverage
+backend/.coverage.*
+backend/coverage.xml
 
-# Django-related files
-*.log
-db.sqlite3
-media/
-staticfiles/
+# =========================
+# Frontend (Vite / React)
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
 
-# Environment variables
+# =========================
+# Root-level environment files
+# =========================
 .env
+budget_db.env
+secrets.json
 
-# Virtual environment
-venv/
-env/
-.venv/
-
-# IDE and editor files
+# =========================
+# IDE / Editor
+# =========================
 .vscode/
 .idea/
 *.swp
 *.sublime-workspace
 *.sublime-project
 
-# OS-specific files
+# =========================
+# OS files
+# =========================
 .DS_Store
 Thumbs.db
 
-# Coverage reports
-htmlcov/
-.coverage
-.coverage.*
-
-# Test and debug artifacts
-*.pytest_cache/
-.tox/
-.nox/
-coverage.xml
-
-# Node.js dependencies (if React Native is part of the monorepo)
-node_modules/
-
-# Docker-related files
+# =========================
+# Docker
+# =========================
 *.pid
-*.log
 docker-compose.override.yml
-
-# Secrets and sensitive data
-secrets.json
-
-budget_db.env
