@@ -1,8 +1,8 @@
 # =========================
 # Backend (Django)
 # =========================
-backend/__pycache__/
-backend/*.py[cod]
+__pycache__/
+*.py[cod]
 backend/*.so
 backend/*.log
 backend/*.sqlite3
