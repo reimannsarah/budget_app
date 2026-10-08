@@ -1,50 +1,67 @@
-# Welcome to your Expo app 👋
+# Budget App Frontend
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native mobile app built with [Expo](https://expo.dev) and [expo-router](https://docs.expo.dev/router/introduction/) for managing personal budgets. Connects to the Django REST API backend.
 
-## Get started
+## Prerequisites
 
-1. Install dependencies
+- [Node.js](https://nodejs.org/) (LTS recommended)
+- npm (comes with Node.js)
+- [Expo Go](https://expo.dev/go) app installed on your phone (available on App Store and Google Play)
 
-   ```bash
-   npm install
-   ```
+## Getting Started
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Install dependencies
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Start the development server
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+This starts the Metro bundler and displays a QR code in your terminal.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Other start commands
 
-## Join the community
+```bash
+npx expo start --ios      # Open in iOS Simulator
+npx expo start --android  # Open in Android Emulator
+npx expo start --web      # Open in web browser
+```
 
-Join our community of developers creating universal apps.
+## Viewing the App on Your Phone
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Install the **Expo Go** app on your phone from the [App Store](https://apps.apple.com/app/expo-go/id982107779) (iOS) or [Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent) (Android).
+2. Make sure your phone and computer are on the **same Wi-Fi network**.
+3. Start the dev server with `npx expo start`.
+4. Scan the QR code displayed in the terminal:
+   - **iOS**: Use your phone's built-in Camera app.
+   - **Android**: Use the QR scanner inside the Expo Go app.
+5. The app will open in Expo Go.
+
+### Troubleshooting
+
+- **QR code not visible?** Press `c` in the terminal to show the connection info again.
+- **Can't connect?** Try running `npx expo start --tunnel` to use a tunnel connection instead of LAN. This requires `@expo/ngrok` (`npm i -g @expo/ngrok`).
+- **Slow bundling?** The first load takes longer as Metro bundles all modules. Subsequent reloads are faster.
+
+## Project Structure
+
+```
+app/              # Screens and routing (file-based routing via expo-router)
+  (tabs)/         # Tab navigation screens
+  types/          # TypeScript type definitions
+  utils/          # Utility functions
+assets/           # Images, fonts, and static files
+components/       # Reusable UI components
+constants/        # App-wide constants (theme, colors)
+```
+
+## Linting
+
+```bash
+npm run lint
+```

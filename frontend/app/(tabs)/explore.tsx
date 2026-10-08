@@ -1,112 +1,231 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { PolarChart, Pie } from "victory-native";
+import { useFont } from "@shopify/react-native-skia";
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import { Colors, Fonts } from "@/constants/theme";
+import { assignChartColors } from "@/app/utils/assign-chart-colors";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import {
+  budgetItems,
+  creditCards,
+  incomes,
+  loans,
+  paymentMethods,
+  subscriptions,
+} from "@/assets/test-data/data";
 
-export default function TabTwoScreen() {
+function LegendRows({ data, labelKey, valueKey, total }: {
+  data: { color: string; [key: string]: any }[];
+  labelKey: string;
+  valueKey: string;
+  total: number;
+}) {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
+    <View style={styles.legend}>
+      {data.map((item, i) => (
+        <View key={i} style={styles.legendRow}>
+          <View style={[styles.legendSwatch, { backgroundColor: item.color }]} />
+          <ThemedText style={styles.legendLabel}>{item[labelKey]}</ThemedText>
+          <ThemedText style={styles.legendValue}>
+            ${Number(item[valueKey]).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+          </ThemedText>
+          <ThemedText style={styles.legendPercent}>
+            {((Number(item[valueKey]) / total) * 100).toFixed(1)}%
+          </ThemedText>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function BarRows({ data, labelKey, valueKey, maxValue }: {
+  data: { color: string; [key: string]: any }[];
+  labelKey: string;
+  valueKey: string;
+  maxValue: number;
+}) {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+  const trackBg = isDark ? "#2a3a3e" : "#d4e8e5";
+
+  return (
+    <View style={styles.barContainer}>
+      {data.map((item, i) => (
+        <View key={i} style={styles.barRow}>
+          <View style={styles.barLabelRow}>
+            <ThemedText style={styles.barLabel}>{item[labelKey]}</ThemedText>
+            <ThemedText style={styles.barValue}>
+              ${Number(item[valueKey]).toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+          </View>
+          <View style={[styles.barTrack, { backgroundColor: trackBg }]}>
+            <View
+              style={[
+                styles.barFill,
+                {
+                  backgroundColor: item.color,
+                  width: `${(Number(item[valueKey]) / maxValue) * 100}%`,
+                },
+              ]}
+            />
+          </View>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function GroupedCount({ data, groupKey }: {
+  data: { [key: string]: any }[];
+  groupKey: string;
+}) {
+  const groups: Record<string, number> = {};
+  data.forEach((item) => {
+    const key = item[groupKey];
+    groups[key] = (groups[key] || 0) + 1;
+  });
+
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+  const chipBg = isDark ? "#1a2e33" : "#e8f4f2";
+
+  return (
+    <View style={styles.chipContainer}>
+      {Object.entries(groups).map(([label, count]) => (
+        <View key={label} style={[styles.chip, { backgroundColor: chipBg, borderColor: Colors.chartColors.cream }]}>
+          <ThemedText style={styles.chipLabel}>{label}</ThemedText>
+          <ThemedText style={[styles.chipCount, { color: Colors.chartColors.cream }]}>{count}</ThemedText>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+export default function ChartsScreen() {
+  const font = useFont(Fonts.sans, 12);
+
+  const budgetData = assignChartColors(budgetItems);
+  const budgetTotal = budgetItems.reduce((s, i) => s + i.amount, 0);
+
+  const incomeData = assignChartColors(incomes);
+  const incomeTotal = incomes.reduce((s, i) => s + i.amount, 0);
+
+  const subData = assignChartColors(subscriptions);
+  const subTotal = subscriptions.reduce((s, i) => s + i.amount, 0);
+
+  const creditData = assignChartColors(creditCards);
+  const maxCredit = Math.max(...creditCards.map((c) => c.credit_limit));
+
+  const loanData = assignChartColors(loans);
+  const maxLoan = Math.max(...loans.map((l) => l.amount));
+
+  return (
+    <ThemedView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <ThemedText type="title" style={styles.heading}>Charts</ThemedText>
+
+        <ThemedText type="subtitle" style={styles.sectionTitle}>Budget Items</ThemedText>
+        <View style={styles.chartWrapper}>
+          <PolarChart
+            data={budgetData}
+            colorKey="color"
+            labelKey="category"
+            valueKey="amount"
+          >
+            <Pie.Chart>
+              {() => (
+                <Pie.Slice>
+                  <Pie.Label font={font} />
+                </Pie.Slice>
+              )}
+            </Pie.Chart>
+          </PolarChart>
+        </View>
+        <LegendRows data={budgetData} labelKey="category" valueKey="amount" total={budgetTotal} />
+
+        <ThemedText type="subtitle" style={styles.sectionTitle}>Incomes</ThemedText>
+        <View style={styles.chartWrapper}>
+          <PolarChart
+            data={incomeData}
+            colorKey="color"
+            labelKey="source"
+            valueKey="amount"
+          >
+            <Pie.Chart>
+              {() => (
+                <Pie.Slice>
+                  <Pie.Label font={font} />
+                </Pie.Slice>
+              )}
+            </Pie.Chart>
+          </PolarChart>
+        </View>
+        <LegendRows data={incomeData} labelKey="source" valueKey="amount" total={incomeTotal} />
+
+        <ThemedText type="subtitle" style={styles.sectionTitle}>Subscriptions</ThemedText>
+        <View style={styles.chartWrapper}>
+          <PolarChart
+            data={subData}
+            colorKey="color"
+            labelKey="name"
+            valueKey="amount"
+          >
+            <Pie.Chart>
+              {() => (
+                <Pie.Slice>
+                  <Pie.Label font={font} />
+                </Pie.Slice>
+              )}
+            </Pie.Chart>
+          </PolarChart>
+        </View>
+        <LegendRows data={subData} labelKey="name" valueKey="amount" total={subTotal} />
+
+        <ThemedText type="subtitle" style={styles.sectionTitle}>Credit Cards by Limit</ThemedText>
+        <BarRows data={creditData} labelKey="name" valueKey="credit_limit" maxValue={maxCredit} />
+
+        <ThemedText type="subtitle" style={styles.sectionTitle}>Loans by Amount</ThemedText>
+        <BarRows data={loanData} labelKey="name" valueKey="amount" maxValue={maxLoan} />
+
+        <ThemedText type="subtitle" style={styles.sectionTitle}>Payment Methods</ThemedText>
+        <GroupedCount data={paymentMethods} groupKey="type" />
+
+        <View style={{ height: 40 }} />
+      </ScrollView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: { flex: 1 },
+  scroll: { padding: 16, paddingTop: 60 },
+  heading: { marginBottom: 20 },
+  sectionTitle: { marginTop: 24, marginBottom: 12 },
+  chartWrapper: { height: 300 },
+  legend: { gap: 8, paddingHorizontal: 8 },
+  legendRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  legendSwatch: { width: 14, height: 14, borderRadius: 3 },
+  legendLabel: { flex: 1, fontSize: 14 },
+  legendValue: { fontSize: 14, fontWeight: "600", minWidth: 70, textAlign: "right" },
+  legendPercent: { fontSize: 13, opacity: 0.6, minWidth: 45, textAlign: "right" },
+  barContainer: { gap: 12, paddingHorizontal: 8 },
+  barRow: { gap: 4 },
+  barLabelRow: { flexDirection: "row", justifyContent: "space-between" },
+  barLabel: { fontSize: 14 },
+  barValue: { fontSize: 14, fontWeight: "600" },
+  barTrack: { height: 16, borderRadius: 8, overflow: "hidden" },
+  barFill: { height: "100%", borderRadius: 8 },
+  chipContainer: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
+  chip: {
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    alignItems: "center",
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
+  chipLabel: { fontSize: 14, fontWeight: "600" },
+  chipCount: { fontSize: 24, fontWeight: "700", marginTop: 4 },
 });
