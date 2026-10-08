@@ -21,6 +21,8 @@ const MAPPING = {
   'chart.pie.fill': 'pie-chart',
   'line.3.horizontal': 'menu',
   'gearshape.fill': 'settings',
+  'sun.max.fill': 'light-mode',
+  'moon.fill': 'dark-mode',
 } as IconMapping;
 
 /**

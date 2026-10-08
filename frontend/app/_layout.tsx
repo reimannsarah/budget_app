@@ -1,8 +1,9 @@
-import { ThemeProvider, DarkTheme, DefaultTheme, Stack } from 'expo-router';
+import { ThemeProvider as ExpoThemeProvider, DarkTheme, DefaultTheme, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { ThemeProvider } from '@/contexts/theme-context';
 import { DrawerProvider } from '@/contexts/drawer-context';
 import { DrawerMenu } from '@/components/drawer-menu';
 
@@ -10,12 +11,12 @@ export const unstable_settings = {
   anchor: '(tabs)',
 };
 
-export default function RootLayout() {
+function AppContent() {
   const colorScheme = useColorScheme();
 
   return (
     <DrawerProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ExpoThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
@@ -29,7 +30,15 @@ export default function RootLayout() {
         </Stack>
         <DrawerMenu />
         <StatusBar style="auto" />
-      </ThemeProvider>
+      </ExpoThemeProvider>
     </DrawerProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
