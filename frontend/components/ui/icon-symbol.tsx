@@ -19,6 +19,8 @@ const MAPPING = {
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
   'chart.pie.fill': 'pie-chart',
+  'line.3.horizontal': 'menu',
+  'gearshape.fill': 'settings',
 } as IconMapping;
 
 /**
