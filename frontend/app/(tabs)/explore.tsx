@@ -6,7 +6,7 @@ import { useFont } from "@shopify/react-native-skia";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Colors, Fonts } from "@/constants/theme";
-import { assignChartColors } from "@/app/utils/assign-chart-colors";
+import { assignChartColors } from "@/utils/assign-chart-colors";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import {
   budgetItems,

@@ -41,9 +41,9 @@ export const paymentMethods = [
 ];
 
 export const subscriptions = [
-  { id: 1, amount: 15.99, credit_card_id: 1, due_date: "2026-04-01", name: "Netflix", payment_method_id: 1, created_at: "2026-01-01", updated_at: "2026-03-01" },
-  { id: 2, amount: 9.99, credit_card_id: 2, due_date: "2026-04-05", name: "Spotify", payment_method_id: 2, created_at: "2026-01-01", updated_at: "2026-03-01" },
-  { id: 3, amount: 14.99, credit_card_id: 3, due_date: "2026-04-08", name: "Adobe Creative Cloud", payment_method_id: 4, created_at: "2026-01-01", updated_at: "2026-03-01" },
-  { id: 4, amount: 12.99, credit_card_id: null, due_date: "2026-04-12", name: "YouTube Premium", payment_method_id: 3, created_at: "2026-01-01", updated_at: "2026-03-01" },
-  { id: 5, amount: 6.99, credit_card_id: null, due_date: "2026-04-15", name: "Apple iCloud", payment_method_id: 5, created_at: "2026-01-01", updated_at: "2026-03-01" },
+  { id: 1, amount: 15.99, credit_card: 1, due_date: "2026-04-01", name: "Netflix", payment_method: 1, created_at: "2026-01-01", updated_at: "2026-03-01" },
+  { id: 2, amount: 9.99, credit_card: 2, due_date: "2026-04-05", name: "Spotify", payment_method: 2, created_at: "2026-01-01", updated_at: "2026-03-01" },
+  { id: 3, amount: 14.99, credit_card: 3, due_date: "2026-04-08", name: "Adobe Creative Cloud", payment_method: 4, created_at: "2026-01-01", updated_at: "2026-03-01" },
+  { id: 4, amount: 12.99, credit_card: null, due_date: "2026-04-12", name: "YouTube Premium", payment_method: 3, created_at: "2026-01-01", updated_at: "2026-03-01" },
+  { id: 5, amount: 6.99, credit_card: null, due_date: "2026-04-15", name: "Apple iCloud", payment_method: 5, created_at: "2026-01-01", updated_at: "2026-03-01" },
 ];

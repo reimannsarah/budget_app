@@ -22,7 +22,7 @@ export function SummaryCard({ title, count, total, onPress }: SummaryCardProps) 
         styles.card,
         {
           backgroundColor: isDark ? "#1a2e33" : "#e8f4f2",
-          borderColor: Colors.chartColors.three,
+          borderColor: Colors.chartColors.yellow,
           opacity: pressed ? 0.8 : 1,
         },
       ]}
@@ -31,7 +31,7 @@ export function SummaryCard({ title, count, total, onPress }: SummaryCardProps) 
       <View style={styles.row}>
         <ThemedText style={styles.count}>{count} items</ThemedText>
         {total && (
-          <ThemedText style={[styles.total, { color: Colors.chartColors.two }]}>
+          <ThemedText style={[styles.total, { color: Colors.chartColors.orange }]}>
             {total}
           </ThemedText>
         )}

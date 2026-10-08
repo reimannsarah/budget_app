@@ -1,10 +1,10 @@
 export type Subscription = {
   id: number;
   amount: number;
-  credit_card_id: number | null;
+  credit_card: number | null;
   due_date: string;
   name: string;
-  payment_method_id: number;
+  payment_method: number;
   created_at: string;
   updated_at: string;
 };

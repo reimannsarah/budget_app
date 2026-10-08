@@ -1,4 +1,4 @@
-import { assignChartColors } from "@/app/utils/assign-chart-colors";
+import { assignChartColors } from "@/utils/assign-chart-colors";
 import { budgetItems } from "@/assets/test-data/data";
 import { Fonts } from "@/constants/theme";
 import { useFont } from "@shopify/react-native-skia";
